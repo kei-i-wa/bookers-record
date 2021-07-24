@@ -1,0 +1,37 @@
+<main>
+
+<div class="container px-5 px-sm-0">
+<div class="row">
+<div class="col-md-3">
+
+<!--ユーザ情報-->
+<h2>User info</h2>
+<%= attachment_image_tag current_user, :profile_image, :fill, 100, 100, format: 'jpeg',fallback: "no_image.jpg" %>
+<table class="table">
+ <tbody>
+  <tr>
+  <th>name</th>
+  <th><%= current_user.name %></th>
+  </tr>
+  <tr>
+  <th>introduction</th>
+  <th><%= current_user.introduction %></th>
+  </tr>
+  <tr>
+  <th>follows</th><th><%= link_to user_followings_path(current_user.id) do %><%= current_user.followings.count %><% end %></th>
+  </tr>
+  <tr>
+  <th>followes</th><th><%= link_to user_followers_path(current_user.id) do %><%= current_user.followers.count %><% end %></th>
+  </tr>
+ </tbody>
+ </table>
+
+
+
+ <%= link_to edit_user_path(current_user),class:'btn btn-outline-secondary btn-block' do %>
+ <i class="fas fa-user-cog"></i>
+ <% end %>
+
+
+
+

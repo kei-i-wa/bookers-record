@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="https://kit.fontawesome.com/3814284ee8.js" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+  <span class="h4"><%= link_to "Bookers","/",class:'nav-link text-light'%></span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto">
+    <% if user_signed_in? %>
+    <li class="nav-item"><%= link_to 'Home', user_path(current_user.id),class:'nav-link text-light fas fa-home'%></li>
+    <li class="nav-item"><%= link_to "Users", "/users",class:'nav-link text-light fas fa-users'%></li>
+    <li class="nav-item"><%= link_to 'Books',"/books",class:'nav-link text-light fas fa-book-open'%></li>
+    <li class="nav-item"><%= link_to "logout", destroy_user_session_path, method: :delete,class:'nav-link text-light fas fa-sign-out-alt' %></li>
+
+
+    <% else %>
+      <li class="nav-item"><%= link_to"Home","/",class:'nav-link text-light fas fa-home'%></li>
+      <li class="nav-item"><%= link_to"About","/home/about",class:'nav-link text-light fas fa-link'%></li>
+      <li class="nav-item"><%= link_to "sign up", new_user_registration_path,class:'nav-link text-light fas fa-user-plus'%></li>
+      <li class="nav-item"><%= link_to "login", new_user_session_path,class:'nav-link text-light fas fa-sign-in-alt'%></li>
+    <% end %>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    
+    </header>
+
+   <%= render 'layouts/notification' %>
+   <%= render 'layouts/header' %>
+
+
+    <%= yield %>
+
+
+  </body>
+
+
+  <div class="container">
+  <footer class="text-center" style="margin-top:50px;">CopyRight Infratop.inc</footer>
+  </div>
+</html>

@@ -1,0 +1,53 @@
+<%= render 'users/user_show', users: @users %>
+
+<!--本の新規投稿-->
+<%= render 'books/book_new', book: @book %>
+<!--テーブル-->
+<div class="col-md-8 offset-md-1">
+<h2>Users</h2>
+<table class="table table-hover table-inverse">
+<thred>
+ <tr>
+  <th>image</th>
+  <th>name</th>
+  <th colspan="4"></th>
+ </tr>
+ </thred>
+
+<tbody>
+ <tr>
+ <% @users.each do |user| %>
+ <td><%= attachment_image_tag user, :profile_image,format:'jpeg',size: "50x50", fallback: "no_image.jpg" %></td>
+ <td><%= user.name %></td>
+ <td>フォロー数: <%= user.followings.count %></td>
+ <td>フォロワー数: <%= user.followers.count %></td>
+ <td>
+      <% if current_user.id != user.id %>
+        <% if current_user.following?(user) %>
+        <%= link_to 'フォローを外す', user_relationships_path(user.id), method: :DELETE %>
+        <% else %>
+        <%= link_to 'フォローする', user_relationships_path(user.id), method: :POST %>
+        <% end %>
+      <% end %>
+    </td>
+
+ <!--フォロー-->
+
+
+ <!--フォロー-->
+ <td><%=link_to "Show",user_path(user.id)  %></td>
+ </tr>
+ </tbody>
+</div>
+
+ <% end %>
+
+ <%= paginate@users %>
+
+
+<!--%= link_to book_path(book.id) do %> % end %-->
+<!--<p>ユーザーネーム：%= book.user.name %></p>-->
+</div>
+</div>
+</main>
+</table>

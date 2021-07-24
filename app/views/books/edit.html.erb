@@ -1,0 +1,39 @@
+<div class="error" style="color:red; font-size:20px;margin:10px;">
+<% if @book.errors.any? %>
+<p class="error_title" style="font-size:30px;"><%= @book.errors.count %>errors prohibited this obj from being saved:</p>
+<% @book.errors.full_messages.each do |message| %>
+<li><%= message %></li>
+<% end %>
+<% end %>
+</div>
+
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+
+<h1>Editing Book</h1>
+<%= form_with model:@book, local: true do |f| %>
+<div class="form-group" style="margin-bottom:20px;">
+<label for="book_title">Title</label>
+<div><%=f.text_field:title,autofocus: true,id:"book_title", placeholder:"本のタイトル",class:"form-control"%>
+</div>
+</div>
+
+<div class="form-group" style="margin-bottom:20px;">
+<label for="book_opinion">Opinion</label>
+<div><%=f.text_area:body,autofocus: true,id:"book_opinion", placeholder:"最大２００文字までです。",class:"form-control"%>
+</div>
+</div>
+
+<div class="action" style="margin:20px 0 ;">
+<%= f.submit ' Update Book ',class: 'btn btn-success' %>
+<% end %></div>
+
+<%= link_to "Show","/books/#{@book.id}"%>|
+<%= link_to "Back","/books"%>
+
+</div>
+</div>
+</div>
+</main>
