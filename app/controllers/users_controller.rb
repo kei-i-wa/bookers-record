@@ -23,7 +23,10 @@ class UsersController < ApplicationController
     @sevendays_book = @books.created_7days
     @this_week_book = @books.created_this_week
     @last_week_book = @books.created_last_week
-
+    # @books_count = Book.group_by_day(:created_at).size
+    @book_by_day = @books.group_by_day(:created_at).size
+    @chartlabels = @book_by_day.map(&:first).to_json.html_safe
+    @chartdatas = @book_by_day.map(&:second)
     @book=Book.new
   end
 

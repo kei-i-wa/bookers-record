@@ -165,3 +165,34 @@
    </tbody>
   </table>
   
+  
+   <!--%= line_chart @books.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day).group("date(created_at)").sum(@books.count) %>-->
+   
+    <!--   <div class="main">-->
+    <!--    <label class="text-user">日別投稿数</label>-->
+    <!--    <div class="graph">-->
+    <!--      %= line_chart @bookss_count, download: true, colors: ['#FF4F02'] %>-->
+    <!--    </div>-->
+    <!--</div>-->
+    
+    
+    <canvas id="myChart" width="300" height="100"> </canvas>
+
+    <script> 
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',                      
+        data: {
+            labels: <%= @chartlabels %>,
+            datasets: [{
+                label: "投稿数",
+                data: <%= @chartdatas %>,
+                backgroundColor: 'rgba(255, 80, 120, 1.0)',
+                borderColor: 'rgba(255, 80, 120, 1.0)',
+                fill: false
+            }]
+        },
+    });
+</script>
+
+<!--typeをbarにすると棒-->
