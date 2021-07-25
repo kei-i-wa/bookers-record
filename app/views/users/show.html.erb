@@ -141,7 +141,6 @@
   <table class="table">
    <thead>
     <tr>
-     <th>7日前</th>
      <th>６日前</th>
      <th>5日前</th>
      <th>4日前</th>
@@ -153,12 +152,11 @@
    </thead>
    <tbody>
     <tr>
-     <th><%= @sevendays_book.count %></th>
-     <th><%= @sixdays_book.count %></th>
-     <th><%= @fivedays_book.count %></th>
-     <th><%= @fourdays_book.count %></th>
-     <th><%= @threedays_book.count %></th>
-     <th><%= @twodays_book.count %></th>
+     <th><%= @books.created_6days.count %></th>
+     <th><%= @books.created_5days.count %></th>
+     <th><%= @books.created_4days.count %></th>
+     <th><%= @books.created_3days.count %></th>
+     <th><%= @books.created_2days.count %></th>
      <th><%= @yesterday_book.count %></th>
      <th><%= @today_book.count %></th>
     </tr>
@@ -183,10 +181,10 @@
     var myChart = new Chart(ctx, {
         type: 'line',                      
         data: {
-            labels: <%= @chartlabels %>,
+            labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
             datasets: [{
                 label: "投稿数",
-                data: <%= @chartdatas %>,
+                data: [<%= @books.created_6days.count %>, <%= @books.created_5days.count %>, <%= @books.created_4days.count %>, <%= @books.created_3days.count %>, <%= @books.created_2days.count %>, <%= @yesterday_book.count %>, <%= @today_book.count%>],
                 backgroundColor: 'rgba(255, 80, 120, 1.0)',
                 borderColor: 'rgba(255, 80, 120, 1.0)',
                 fill: false
@@ -196,3 +194,44 @@
 </script>
 
 <!--typeをbarにすると棒-->
+
+
+<!--以下は個別で、turbを無効にする場合-->
+<!--<canvas id="myLineChart"></canvas>-->
+<!--  <script>-->
+<!--      $(document).on('turbolinks:load', function() {-->
+<!--      var ctx = document.getElementById("myLineChart");-->
+<!--      var myLineChart = new Chart(ctx, {-->
+<!--        type: 'line',-->
+<!--        data: {-->
+<!--          labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],-->
+<!--          datasets: [-->
+<!--            {-->
+<!--              label: '投稿した本の数',-->
+<!--              data: [<%= @books.created_6days.count %>, <%= @books.created_5days.count %>, <%= @books.created_4days.count %>, <%= @books.created_3days.count %>, <%= @books.created_2days.count %>, <%= @yesterday_book.count %>, <%= @today_book.count%>],-->
+<!--              borderColor: "rgba(0,0,255,1)",-->
+<!--              backgroundColor: "rgba(0,0,0,0)"-->
+<!--            }-->
+<!--          ],-->
+<!--        },-->
+<!--        options: {-->
+<!--          title: {-->
+<!--            display: true,-->
+<!--            text: '7日間の投稿数の比較'-->
+<!--          },-->
+<!--          scales: {-->
+<!--            yAxes: [{-->
+<!--              ticks: {-->
+<!--                suggestedMax: 10,-->
+<!--                suggestedMin: 0,-->
+<!--                stepSize: 1,-->
+<!--                callback: function(value, index, values){-->
+<!--                  return  value-->
+<!--                }-->
+<!--              }-->
+<!--            }]-->
+<!--          },-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
