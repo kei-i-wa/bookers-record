@@ -7,12 +7,16 @@ class UsersController < ApplicationController
   def show
     @user=User.find(params[:id])
     @books = @user.books.page(params[:page]).reverse_order
-    from=Time.current.at_beginning_of_day
-    to=Time.current.at_end_of_day
-    @book_a_day=@books.where(created_at: from...to)
-    @book_a_yesterday=@books.where(created_at: 1.day.ago.all_day)
-    @book_a_week=@books.where(created_at: 6.days.ago...to)
-    @book_a_lastweek=@books.where(created_at: 14.days.ago...to-7.days)
+    # from=Time.current.at_beginning_of_day
+    # to=Time.current.at_end_of_day
+    # @book_a_day=@books.where(created_at: from...to)
+    # @book_a_yesterday=@books.where(created_at: 1.day.ago.all_day)
+    # @book_a_week=@books.where(created_at: 6.days.ago...to)
+    # @book_a_lastweek=@books.where(created_at: 14.days.ago...to-7.days)
+    @today_book =  @books.created_today
+    @yesterday_book = @books.created_yesterday
+    @this_week_book = @books.created_this_week
+    @last_week_book = @books.created_last_week
 
     @book=Book.new
   end
