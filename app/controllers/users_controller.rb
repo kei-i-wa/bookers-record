@@ -11,6 +11,8 @@ class UsersController < ApplicationController
     to=Time.current.at_end_of_day
     @book_a_day=@books.where(created_at: from...to)
     @book_a_yesterday=@books.where(created_at: 1.day.ago.all_day)
+    @book_a_week=@books.where(created_at: 6.days.ago...to)
+    @book_a_lastweek=@books.where(created_at: 14.days.ago...to-7.days)
 
     @book=Book.new
   end

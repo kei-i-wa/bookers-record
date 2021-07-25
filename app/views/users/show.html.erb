@@ -109,7 +109,30 @@
      <td>前日の投稿はなし</td>
      <% else %>
        　<td><% @the_day_before =   @book_a_day.count / @book_a_yesterday.count.to_f  %>
-       　<%= (@the_day_before * 100).round %></td>
+       　<%= (@the_day_before * 100).round %>%</td>
+     <% end %>
+     </tr>
+   </tbody>
+  </table>
+  
+  
+  <table class="table">
+  <thead>
+  <tr>
+   <th>今週の投稿</th>
+   <th>先週の投稿</th>
+   <th>比</th>
+  </tr>
+  </thead>
+   <tbody>
+    <tr>
+     <td><%= @book_a_week.count %></td>
+     <td><%= @book_a_lastweek.count %></td>
+     <% if @book_a_lastweek.count == 0 %>
+     <td>先週の投稿はなし</td>
+     <% else %>
+       　<td><% @the_week_before =   @book_a_week.count / @book_a_lastweek.count.to_f  %>
+       　<%= (@the_week_before * 100).round %>%</td>
      <% end %>
      </tr>
    </tbody>
