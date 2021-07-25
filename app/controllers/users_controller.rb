@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     # @book_a_lastweek=@books.where(created_at: 14.days.ago...to-7.days)
     @today_book =  @books.created_today
     @yesterday_book = @books.created_yesterday
+    @twodays_book = @books.created_2days
+    @threedays_book = @books.created_3days
+    @fourdays_book = @books.created_4days
+    @fivedays_book = @books.created_5days
+    @sixdays_book = @books.created_6days
+    @sevendays_book = @books.created_7days
     @this_week_book = @books.created_this_week
     @last_week_book = @books.created_last_week
 

@@ -137,3 +137,31 @@
      </tr>
    </tbody>
   </table>
+  
+  <table class="table">
+   <thead>
+    <tr>
+     <th>7日前</th>
+     <th>６日前</th>
+     <th>5日前</th>
+     <th>4日前</th>
+     <th>3日前</th>
+     <th>２日前</th>
+     <th>昨日</th>
+     <th>今日</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <th><%= @sevendays_book.count %></th>
+     <th><%= @sixdays_book.count %></th>
+     <th><%= @fivedays_book.count %></th>
+     <th><%= @fourdays_book.count %></th>
+     <th><%= @threedays_book.count %></th>
+     <th><%= @twodays_book.count %></th>
+     <th><%= @yesterday_book.count %></th>
+     <th><%= @today_book.count %></th>
+    </tr>
+   </tbody>
+  </table>
+  
