@@ -292,3 +292,13 @@
       });
     // });
   </script>
+  
+  <%= form_with url: user_path,method: :get, local: true do |f| %>
+  <div class="form-group">
+  <%= f.label :created_at,class: 'control-label'%>
+  <%= f.date_field :created_at,class: 'form-control'%>
+  <%= f.submit '更新' %>
+  <% end %>
+  </div>
+  
+  <%= @books_search.count%>

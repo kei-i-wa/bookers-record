@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @this_week_book = @books.created_this_week
     @last_week_book = @books.created_last_week
     @book=Book.new
+    @books_search=@books.created_at(params[:created_at])
   end
 
   def index
