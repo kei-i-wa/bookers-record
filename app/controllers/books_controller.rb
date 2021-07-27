@@ -19,7 +19,9 @@ class BooksController < ApplicationController
 
   def index
     @book=Book.new
-    @books=Book.page(params[:page]).reverse_order
+    # 本の投稿を新しい順に並べる
+    books_order = Book.order('id DESC')
+    @books=books_order.page(params[:page])
   end
 
   def show
