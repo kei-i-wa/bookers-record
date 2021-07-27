@@ -21,20 +21,32 @@ class BooksController < ApplicationController
     @book=Book.new
     # 本の投稿を新しい順に並べる
     # if params[:order] == new
-    # books_order = Book.order('id DESC')
-    # @books=Book.page(params[:page])
-    @q=Book.ransack(params[:q])
-    @books=@q.result(distinct: true)
+    books_order = Book.order('id DESC')
+    @books=books_order.page(params[:page])
     
-    
-    # else
-    # books_order=Book.includes(:favorited_users).
-    #   sort {|a,b| 
-    #     b.favorited_users.includes(:favorites).size <=> 
-    #     a.favorited_users.includes(:favorites).size
-    # #   }
-    # @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
+  #   if Book.ransack(params[:q]) == :created_at
+  #   # @q=Book.ransack(params[:q])
+  #     @books=@q.result(distinct: true)
+  #   else
+  #     books=Book.includes(:favorited_users).
+  #     sort {|a,b| 
+  #       b.favorited_users.includes(:favorites).size <=> 
+  #       a.favorited_users.includes(:favorites).size
+  #     }
+  #     @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
+  #   end
   end
+  
+  def favorite_order
+    books = Book.includes(:favorited_users).
+      sort {|a,b| 
+        b.favorited_users.includes(:favorites).size <=> 
+        a.favorited_users.includes(:favorites).size
+      }
+     @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
+     @book = Book.new
+  end
+    
 
   def show
     @books=Book.find(params[:id])
