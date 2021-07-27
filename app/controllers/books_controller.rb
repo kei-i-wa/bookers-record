@@ -20,8 +20,20 @@ class BooksController < ApplicationController
   def index
     @book=Book.new
     # 本の投稿を新しい順に並べる
-    books_order = Book.order('id DESC')
-    @books=books_order.page(params[:page])
+    # if params[:order] == new
+    # books_order = Book.order('id DESC')
+    # @books=Book.page(params[:page])
+    @q=Book.ransack(params[:q])
+    @books=@q.result(distinct: true)
+    
+    
+    # else
+    # books_order=Book.includes(:favorited_users).
+    #   sort {|a,b| 
+    #     b.favorited_users.includes(:favorites).size <=> 
+    #     a.favorited_users.includes(:favorites).size
+    # #   }
+    # @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
   end
 
   def show

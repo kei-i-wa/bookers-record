@@ -78,3 +78,4 @@ gem "refile-mini_magick"
 
 gem "chartkick"
 gem 'groupdate'
+gem 'ransack'
