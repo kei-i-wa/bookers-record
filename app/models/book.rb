@@ -6,7 +6,9 @@ validates :body, presence: true,length:{maximum:200}
 has_many :book_comments, dependent: :destroy
 has_many :favorites, dependent: :destroy
 has_many :favorited_users, through: :favorites, source: :user
+has_many :book_tag
 has_many :tags,through: :book_tag
+
 
  def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
@@ -22,5 +24,16 @@ has_many :tags,through: :book_tag
   scope :created_last_week, -> { where(created_at: 2.week.ago.beginning_of_day..1.week.ago.end_of_day) }
   
 
+ def tags_save(tag_list)
+    if self.tags != nil
+      book_tags_records = BookTag.where(book_id: self.id)
+      book_tags_records.destroy_all
+    end
+
+    tag_list.each do |tag|
+      inspected_tag = Tag.where(name: tag).first_or_create
+      self.tags << inspected_tag
+    end
+ end
 
 end

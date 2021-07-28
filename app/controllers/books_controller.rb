@@ -3,14 +3,16 @@ class BooksController < ApplicationController
   before_action :ensure_correct_user, only:[:edit]
 
   def new
-    @book=BooksTag.new
+    @book=Book.new
   end
 
   def create
-    @book=BooksTag.new(book_params)
-    # @book.user_id=current_user.id
-    if @book.valid?
-    @book.save
+    @book=Book.new(book_params)
+    @book.user_id=current_user.id
+    tag_list=params[:book][:name].split(",")
+    @book.tags_save(tag_list)
+    
+    if  @book.save
     redirect_to books_path(@book),notice:'You have created book successfully.'
     else
     @books=Book.page(params[:page]).reverse_order
@@ -20,7 +22,7 @@ class BooksController < ApplicationController
 
   def index
 
-    @book=BooksTag.new
+    @book=Book.new
     books_order = Book.order('id DESC')
     @books=books_order.page(params[:page])
   end
@@ -32,7 +34,7 @@ class BooksController < ApplicationController
         a.favorited_users.includes(:favorites).size
       }
      @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
-     @book = BooksTag.new
+     @book = Book.new
   end
     
 
@@ -74,6 +76,6 @@ class BooksController < ApplicationController
 
   private
   def book_params
-    params.require(:books_tag).permit(:title,:body,:tag_ids).merge(user_id: current_user.id)
+    params.require(:book).permit(:title,:body)
   end
 end

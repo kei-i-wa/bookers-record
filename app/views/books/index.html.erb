@@ -21,7 +21,10 @@
  <p><%= f.text_field:title %></p>
  <label>Opinion</label>
  <p><%= f.text_area:body %></p>
- <%= f.text_field :tag_ids, class: "text-box", autocomplete: 'off' %>
+ <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder:",で区切ってください" %>
+  </div>
 
 <%= f.submit' Create Book ' ,class:'btn btn-success' %>
 <% end %>
