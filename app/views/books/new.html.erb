@@ -4,6 +4,14 @@
   <%= f.text_field :title %>
   <h4>Opinion</h4>
   <%= f.text_area :body %>
+  
+  <div class="tag-area">
+      <div class="form-text-area">
+        <label class="form-text">タグ</label>
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :name, class: "text-box", autocomplete: 'off' %>
+    </div>
  
   <%= f.submit 'Create Book' %>
 <% end %>

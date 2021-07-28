@@ -29,8 +29,8 @@
 
 <div class="col-md-8 offset-md-1">
 <h2>Books</h2>
-<!--<p>%= sort_link(@q, :created_at, "投稿日順で並び替え") %>|%= sort_link(@q, :books_favorites_count, 'いいねの多い順') %></p>-->
 <p><%=link_to "投稿日",books_path %> | <%= link_to"いいね",book_favorite_order_path(@books) %></p>
+
 <table class="table table-hover table-inverse">
 <thred>
  <tr>

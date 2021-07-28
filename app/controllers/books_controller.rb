@@ -3,14 +3,15 @@ class BooksController < ApplicationController
   before_action :ensure_correct_user, only:[:edit]
 
   def new
-    @book=Book.new
+    @book=BooksTag.new
   end
 
   def create
-    @book=Book.new(book_params)
-    @book.user_id=current_user.id
-    if @book.save
-    redirect_to book_path(@book.id),notice:'You have created book successfully.'
+    @book=BooksTag.new(book_params)
+    # @book.user_id=current_user.id
+    if @book.valid?
+    @book.save
+    redirect_to books_path(@book),notice:'You have created book successfully.'
     else
     @books=Book.page(params[:page]).reverse_order
     render:index
@@ -18,23 +19,10 @@ class BooksController < ApplicationController
   end
 
   def index
-    @book=Book.new
-    # 本の投稿を新しい順に並べる
-    # if params[:order] == new
+
+    @book=BooksTag.new
     books_order = Book.order('id DESC')
     @books=books_order.page(params[:page])
-    
-  #   if Book.ransack(params[:q]) == :created_at
-  #   # @q=Book.ransack(params[:q])
-  #     @books=@q.result(distinct: true)
-  #   else
-  #     books=Book.includes(:favorited_users).
-  #     sort {|a,b| 
-  #       b.favorited_users.includes(:favorites).size <=> 
-  #       a.favorited_users.includes(:favorites).size
-  #     }
-  #     @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
-  #   end
   end
   
   def favorite_order
@@ -44,15 +32,15 @@ class BooksController < ApplicationController
         a.favorited_users.includes(:favorites).size
       }
      @books=Kaminari.paginate_array(books).page(params[:page]).per(25)
-     @book = Book.new
+     @book = BooksTag.new
   end
     
 
   def show
     @books=Book.find(params[:id])
-    @book=Book.new
+    # @book=BooksTag.new
     @book_comment = BookComment.new
-    @book_comments = @book.book_comments.order(created_at: :desc)
+    # @book_comments = @book.book_comments.order(created_at: :desc)
 
   end
 
@@ -86,6 +74,6 @@ class BooksController < ApplicationController
 
   private
   def book_params
-    params.require(:book).permit(:title,:body)
+    params.require(:books_tag).permit(:title,:body,:tag_ids).merge(user_id: current_user.id)
   end
 end
