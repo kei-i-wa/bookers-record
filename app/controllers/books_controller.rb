@@ -9,8 +9,7 @@ class BooksController < ApplicationController
   def create
     @book=Book.new(book_params)
     @book.user_id=current_user.id
-    tag_list=params[:book][:name].split(",")
-    @book.tags_save(tag_list)
+  
     
     if  @book.save
     redirect_to books_path(@book),notice:'You have created book successfully.'
@@ -21,7 +20,6 @@ class BooksController < ApplicationController
   end
 
   def index
-
     @book=Book.new
     books_order = Book.order('id DESC')
     @books=books_order.page(params[:page])
@@ -66,6 +64,11 @@ class BooksController < ApplicationController
     redirect_to books_path
     end
   end
+  
+   def search_book
+    @book = Book.new
+    @books = Book.search(params[:keyword])
+   end
 
   def ensure_correct_user
     @book = Book.find(params[:id])
@@ -76,6 +79,7 @@ class BooksController < ApplicationController
 
   private
   def book_params
-    params.require(:book).permit(:title,:body)
+    params.require(:book).permit(:title,:body,:category)
   end
+  
 end

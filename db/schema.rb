@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_28_055442) do
+ActiveRecord::Schema.define(version: 2021_07_02_062730) do
 
   create_table "book_comments", force: :cascade do |t|
     t.text "comment"
@@ -20,18 +20,10 @@ ActiveRecord::Schema.define(version: 2021_07_28_055442) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "book_tags", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["book_id"], name: "index_book_tags_on_book_id"
-    t.index ["tag_id"], name: "index_book_tags_on_tag_id"
-  end
-
   create_table "books", force: :cascade do |t|
     t.text "title"
     t.text "body"
+    t.string "category"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,12 +45,6 @@ ActiveRecord::Schema.define(version: 2021_07_28_055442) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
