@@ -66,8 +66,8 @@ class BooksController < ApplicationController
   end
   
    def search_book
-    @book = Book.new
-    @books = Book.search(params[:keyword])
+     @book=Book.new
+     @books = Book.search(params[:keyword])
    end
 
   def ensure_correct_user
