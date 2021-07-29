@@ -1,2 +1,0 @@
-class BookTag < ApplicationRecord
-end

@@ -6,7 +6,8 @@ validates :body, presence: true,length:{maximum:200}
 has_many :book_comments, dependent: :destroy
 has_many :favorites, dependent: :destroy
 has_many :favorited_users, through: :favorites, source: :user
-
+has_many :tag_maps,dependent: :destroy
+ has_many:tags,through: :tag_maps  
 
 
  def favorited_by?(user)
@@ -25,6 +26,26 @@ has_many :favorited_users, through: :favorites, source: :user
   def self.search(search_word)
     Book.where(['category LIKE ?', "#{search_word}"])
   end
+
+def save_tag(sent_tags)
+  # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+    # 現在取得したタグから送られてきたタグを除いておoldtagとする
+    old_tags = current_tags - sent_tags
+    # 送信されてきたタグから現在存在するタグを除いたタグをnewとする
+    new_tags = sent_tags - current_tags
+    
+    # 古いタグを消す
+    old_tags.each do |old|
+      self.tags.delete　Tag.find_by(tag_name: old)
+    end
+    
+    # 新しいタグを保存
+    new_tags.each do |new|
+      new_book_tag = Tag.find_or_create_by(tag_name: new)
+      self.tags << new_book_tag
+   end
+end
 
 
 end

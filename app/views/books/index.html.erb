@@ -12,6 +12,11 @@
 <%= render 'users/user_show', users: @users %>
 
 
+<!--タグリスト-->
+<% @tag_list.each do |list|%>
+<%= list.tag_name %>
+<%="(#{list.books.count})" %><% end %>
+
 
 <!--本の新規投稿-->
 <h2 class="mt-3">New book</h2>
@@ -23,8 +28,8 @@
  <p><%= f.text_area:body %></p>
   <label>カテゴリー</label>
  <p><%= f.text_field:category %></p>
-
-
+ <label>タグ</label>
+ <p><%= f.text_field:tag_name %></p>
 <%= f.submit' Create Book ' ,class:'btn btn-success' %>
 <% end %>
 </div>
@@ -56,6 +61,7 @@
 <td><%= link_to book_path(book.id) do %><%= book.title %></td>
 <td><%= book.body %></td>
 <td><%= link_to book.category, search_book_path(keyword: book.category) %></td>
+<!--<td>%= book.tags.tag_name %></td>-->
 
 
 

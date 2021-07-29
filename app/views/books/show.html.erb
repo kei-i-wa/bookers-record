@@ -44,9 +44,19 @@
   <td><%= link_to @books.title,book_path(@books) %></td>
   <td><%= @books.body %></td>
   
+  <!--<td>-->
+  <!--% @book_tags.each do |tag| %>-->
+  <!--%= link_to tag.tag_name,tag_books_path(tag.id: tag.id)%>-->
+  <!--%= "(#{tag.posts.count})" %>-->
+  
   <!--いいねの数-->
   <td id="book_<%= @books.id %>"><%= render "favorites/favorites", books: @books %></td>
 
+  <!--タグ-->
+  <td>
+  <% @book_tags.each do |tag| %>
+  <%= tag.tag_name%>
+  <%="(#{tag.books.count})" %><% end %>
 
   <!--コメントの数-->
   <td>コメント数：<%= @books.book_comments.count %></td>

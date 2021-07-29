@@ -9,13 +9,13 @@ class BooksController < ApplicationController
   def create
     @book=Book.new(book_params)
     @book.user_id=current_user.id
-  
-    
+    tag_list=params[:book][:tag_name].split(nil)
     if  @book.save
-    redirect_to books_path(@book),notice:'You have created book successfully.'
+        @book.save_tag(tag_list)
+        redirect_to books_path(@book),notice:'You have created book successfully.'
     else
-    @books=Book.page(params[:page]).reverse_order
-    render:index
+        @books=Book.page(params[:page]).reverse_order
+        render:index
     end
   end
 
@@ -23,6 +23,7 @@ class BooksController < ApplicationController
     @book=Book.new
     books_order = Book.order('id DESC')
     @books=books_order.page(params[:page])
+    @tag_list=Tag.all
   end
   
   def favorite_order
@@ -41,6 +42,7 @@ class BooksController < ApplicationController
     # @book=BooksTag.new
     @book_comment = BookComment.new
     # @book_comments = @book.book_comments.order(created_at: :desc)
+    @book_tags = @books.tags
 
   end
 
