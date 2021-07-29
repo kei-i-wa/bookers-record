@@ -55,7 +55,7 @@
   <!--タグ-->
   <td>
   <% @book_tags.each do |tag| %>
-  <%= tag.tag_name%>
+  <%= link_to tag.tag_name, search_tag_path(tag_id: tag.id) %>
   <%="(#{tag.books.count})" %><% end %>
 
   <!--コメントの数-->
