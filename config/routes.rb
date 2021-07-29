@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   get 'search/search'
-  
+  get "search_tag"=>"books#search_tag"
   get "search_book" => "books#search_book"
   # get 'relationships/create'
   # get 'relationships/destroy'

@@ -9,7 +9,7 @@ class BooksController < ApplicationController
   def create
     @book=Book.new(book_params)
     @book.user_id=current_user.id
-    tag_list=params[:book][:tag_name].split(nil)
+    tag_list=params[:book][:tag_name].split(',')
     if  @book.save
         @book.save_tag(tag_list)
         redirect_to books_path(@book),notice:'You have created book successfully.'
@@ -71,6 +71,13 @@ class BooksController < ApplicationController
      @book=Book.new
      @books = Book.search(params[:keyword])
    end
+   
+    def search_tag
+      @book=Book.new
+      @tag_list = Tag.all
+      @tag = Tag.find(params[:tag_id])
+      @books = @tag.books.all      
+    end
 
   def ensure_correct_user
     @book = Book.find(params[:id])
